@@ -1,0 +1,19 @@
+{
+  "name": "kdt-2-project-c-7",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kongukjae/KDT-2-Project-C-7.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kongukjae/KDT-2-Project-C-7/issues"
+  },
+  "homepage": "https://github.com/kongukjae/KDT-2-Project-C-7#readme"
+}
