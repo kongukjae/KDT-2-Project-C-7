@@ -16,6 +16,16 @@ import fs from "fs"
 // })
 
 http.createServer((req, res) => {
+  const _url = req.url;
+  const fullUrl = new URL("http://localhost:3000" + _url);
+  const pathName = fullUrl.pathname;
+    if(pathName === "/"){ //이거는 로컬호스트3000맨위 /를 가리킨다
+      fs.readFile('./views/map.html',function(err, data){
+        res.writeHead(200, {'Content-Type':'text/html; charset=utf-8'});
+        res.write(data);
+        res.end();
+      })
+    }
   // var url = req.url;
   // if(req.url === '/'){
   //   url = '/map.html';
@@ -27,9 +37,5 @@ http.createServer((req, res) => {
   // }
   // response.writeHead(200);
   // response.end(fs.readFileSync(__dirname + url));
-  fs.readFile('map.html',function(err, data){
-  res.writeHead(200, {'Content-Type':'text/html; charset=utf-8'});
-  res.write(data);
-  return res.end();
-  })
+  
 }).listen(8080)

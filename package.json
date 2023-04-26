@@ -18,6 +18,5 @@
   },
   "homepage": "https://github.com/kongukjae/KDT-2-Project-C-7#readme",
   "dependencies": {
-    "express": "^4.18.2"
   }
 }
