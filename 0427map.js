@@ -12,7 +12,7 @@
 
     var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
         mapOption = {
-            center: new kakao.maps.LatLng(57.566826, 126.9786567), // 지도의 중심좌표
+            center: new kakao.maps.LatLng(17.566826, 66.9786567), // 지도의 중심좌표
             level: 3 // 지도의 확대 레벨
         };  
     
@@ -40,6 +40,8 @@
             
             var lat = position.coords.latitude, // 위도
                 lon = position.coords.longitude; // 경도
+
+            console.log("나 지금 테스트중", lat);
             
             var locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
                 message = '<div style="padding:5px;">여기?</div>'; // 인포윈도우에 표시될 내용입니다
