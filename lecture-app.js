@@ -21,6 +21,8 @@ const server = http.createServer(function(request, response) {
 
     });
   }
+
+  // ! 요기가 안먹혀 뭔가 있나봐
   if(resource === "/0427map.js") {
     fs.readFile("./0427map.js", 'utf-8', function(error, data) {
       if(error) {
