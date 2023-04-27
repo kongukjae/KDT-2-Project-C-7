@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>map</title>
+  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ae1c9a511444270cacfc9e1194001979"></script>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
+        #container{
+        width: 100vw;
+        height: 100vh;
+        background-color:antiquewhite;
+      }
+      header{
+        width: 100%;
+        height: 20%;
+        background-color: burlywood;
+      }
+      header>nav{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: center;
+      }
+
+      main{
+        width: 100%;
+        height: 80%;
+        background-color: aquamarine;
+      }
+      #map{
+        width: 300px;
+        height: 400px;
+      }
+      .detail{
+        border: 1px solid #ccc;
+        width: 40%;
+        height: 100%;
+        background-color: tomato;
+        float: right;
+        display: none;
+      }
+  </style>
+</head>
+<body>
+  <div id ="container">
+    <header>
+      <nav>
+        <a href="">1</a>
+        <a href="">2</a>
+        <a href="">3</a>
+      </nav>
+    </header>
+    <main>
+      <div id="map"></div>
+      <div class ="detail"></div>
+    </main> 
+  </div>
+  <script src="./0427map.js"></script>
+</body>
+</html>
