@@ -9,6 +9,31 @@ const server = http.createServer(function(request, response) {
   console.log("이거 URL이여?", parsedUrl);
   console.log("이게 리소스여?", resource);
 
+    if(resource === "/") {
+    fs.readFile("./0427main.html", 'utf-8', function(error, data) {
+      if(error) {
+        response.writeHead(500, {'Content-Type':'text/html'});
+        response.end('500 Internal Server '+error);
+      } else {
+        response.writeHead(200, {'Content-Type':'text/html'});
+        response.end(data);
+      }
+
+    });
+  }
+  if(resource === "/0427map.js") {
+    fs.readFile("./0427map.js", 'utf-8', function(error, data) {
+      if(error) {
+        response.writeHead(500, {'Content-Type':'text/html'});
+        response.end('500 Internal Server '+error);
+      } else {
+        response.writeHead(200, {'Content-Type':'text/js'});
+        response.end(data);
+      }
+
+    });
+  }
+
   // if(resource === "/0427main") {
   //   fs.readFile("./0427main.html", 'utf-8', function(error, data) {
   //     if(error) {
