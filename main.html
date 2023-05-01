@@ -5,7 +5,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>map</title>
-  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ae1c9a511444270cacfc9e1194001979"></script>
+  <!-- <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ae1c9a511444270cacfc9e1194001979"></script> -->
+  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ae1c9a511444270cacfc9e1194001979&​libraries=services"></script>
   <style>
     *{
       margin: 0;
@@ -39,6 +40,12 @@
         width: 700px;
         height: 500px;
       }
+      #map_inner{
+        width: 40%;
+        height: 80%;
+        background-color: #fff;
+        opacity: 30%;
+      }
       .detail{
         border: 1px solid #ccc;
         width: 40%;
@@ -60,6 +67,20 @@
     </header>
     <main>
       <div id="map"></div>
+      <div id="menu_wrap" class="bg_white">
+        <div class="option">
+            <div>
+                <form onsubmit="searchPlaces(); return false;">
+                    키워드 : <input type="text" value="이태원 맛집" id="keyword" size="15"> 
+                    <button type="submit">검색하기</button> 
+                </form>
+            </div>
+        </div>
+        <hr>
+        <ul id="placesList"></ul>
+        <div id="pagination"></div>
+    </div>
+      
       <div class ="detail"></div>
     </main> 
   </div>
