@@ -6,8 +6,8 @@ var server = http.createServer(function(request,response){
   var parsedUrl = url.parse(request.url);
   var resource = parsedUrl.pathname;
   
-  console.log("parsedUrl",parsedUrl)
-  console.log("resource",resource) //url을 콘솔로 확인하기
+  //console.log("parsedUrl",parsedUrl)
+  //console.log("resource",resource) //url을 콘솔로 확인하기
 
   // 1. 요청된 자원이 / 이면
   if(resource == '/'){

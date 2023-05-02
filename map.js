@@ -1,100 +1,95 @@
-// var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-//     mapOption = { 
-//         center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-//         level: 4 // 지도의 확대 레벨 
-//     }; 
-
-// var map = new kakao.maps.Map(mapContainer, mapOption); // 지도 생성
-
-// // HTML5의 geolocation으로 사용할 수 있는지 확인 
-// if (navigator.geolocation) {
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+mapOption = {
+    center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+    level: 3 // 지도의 확대 레벨
+    };  
     
-//     // GeoLocation을 이용해서 접속 위치를 얻어오기
-//     navigator.geolocation.getCurrentPosition(function(position) {
-        
-//         var lat = position.coords.latitude, // 위도
-//             lon = position.coords.longitude; // 경도
-        
-//         var locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
-//             message = '<div style="padding:5px;">여기에 계신가요?!</div>'; // 인포윈도우에 표시될 내용입니다
-        
-//         // 마커와 인포윈도우를 표시합니다
-//         displayMarker(locPosition, message);
+    // 지도를 생성합니다    
+    var map = new kakao.maps.Map(mapContainer, mapOption); 
+    
+    
+    // 장소 검색 객체를 생성합니다
+    var ps = new kakao.maps.services.Places();  
+    
+    // 마커를 담을 배열입니다
+    var markers = [];
 
-//         console.log(locPosition) //위도 경도
-//         // alert("현재 위도경도 : "+ lat + ", "+ lon); 위도경도가 나오긴 하는데 정확하지 않음
-//       });
-    
-// } else { // HTML5의 GeoLocation을 사용할 수 없을때 설정
-    
-//     var locPosition = new kakao.maps.LatLng(33.450701, 126.570667),    
-//         message = 'geolocation을 사용할수 없어요..'
-        
-//     displayMarker(locPosition, message);
+//--여기
+const getCurrentCoordinate = async function(){
+    // console.log("getCurrentCoordinate 함수 실행!!!");
+    return new Promise((res, rej) => { //promise객체 생성(좌표반환하는데사용함)
+
+      // HTML5의 geolocaiton으로 사용할 수 있는지 확인합니다.
+      if (navigator.geolocation) {
+        // GeoLocation을 이용해서 접속 위치를 얻어옵니다.
+        navigator.geolocation.getCurrentPosition(function (position) { //접속위치를 얻어올때까지 promise실행정지임
+        //   console.log(position);
+          const lat = position.coords.latitude; // 위도
+          const lon = position.coords.longitude; // 경도
+  
+          const coordinate = new kakao.maps.LatLng(lat, lon);
+          res(coordinate);  //좌표값 반환
+        //   alert(coordinate);
+        });
+      } else {
+        rej(new Error("현재 위치를 불러올 수 없습니다.")); //얻어올수없을때
+      }
+    });
+  };
+
+  async function searchPlaces() {  //function 앞에 async가 붙으면 promise객체 반환
+    // console.log("searchPlaces 실행!!!");
+    var keyword = document.getElementById('keyword').value; //입력ㄴ된키워드
+    if (!keyword.replace(/^\s+|\s+$/g, '')) {
+                alert('키워드를 입력해주세요!');
+                return false;
+            }
+    const currentCoordinate = await getCurrentCoordinate(); //현재좌표 (await느 값얻어올수이ㅆ개해줌)
+    // console.log(currentCoordinate);
+    var options = { //옵션은 객체였음
+      location: currentCoordinate, //현재위치
+      radius: 5000, //중심좌쵸로 5키로
+      sort: kakao.maps.services.SortBy.DISTANCE, //정렬옵션인데, 거리순임
+    };
+
+    // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
+    ps.keywordSearch(keyword, placesSearchCB, options);
+  }
+  
+
+// function searchPlaces() {
+//     var keyword = document.getElementById('keyword').value;
+//     if (!keyword.replace(/^\s+|\s+$/g, '')) {
+//         alert('키워드를 입력해주세요!');
+//         return false;
+//     }
+//     // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
+//     ps.keywordSearch( keyword, placesSearchCB); 
 // }
 
-// // 지도에 마커와 인포윈도우를 표시하는 함수입니다
-// function displayMarker(locPosition, message) {
-
-//     // 마커를 생성합니다
-//     var marker = new kakao.maps.Marker({  
-//         map: map, 
-//         position: locPosition
-//     }); 
-    
-//     var iwContent = message, // 인포윈도우에 표시할 내용
-//         iwRemoveable = true;
-
-//     // 인포윈도우를 생성합니다
-//     var infowindow = new kakao.maps.InfoWindow({
-//         content : iwContent,
-//         removable : iwRemoveable
-//     });
-    
-//     // 인포윈도우를 마커위에 표시합니다 
-//     infowindow.open(map, marker);
-    
-//     // 지도 중심좌표를 접속위치로 변경합니다
-//     map.setCenter(locPosition);   
-
-// }    
-
-
-// 마커를 담을 배열입니다
-var markers = [];
-
-var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-    mapOption = {
-        center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
-    };  
-
-// 지도를 생성합니다    
-var map = new kakao.maps.Map(mapContainer, mapOption); 
-
-
-// 장소 검색 객체를 생성합니다
-var ps = new kakao.maps.services.Places();  
+//---끝
 
 // 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
 var infowindow = new kakao.maps.InfoWindow({zIndex:1});
+
+// getCurrentCoordinate();
 
 // 키워드로 장소를 검색합니다
 searchPlaces();
 
 // 키워드 검색을 요청하는 함수입니다
-function searchPlaces() {
+// function searchPlaces() {
 
-    var keyword = document.getElementById('keyword').value;
+//     var keyword = document.getElementById('keyword').value;
 
-    if (!keyword.replace(/^\s+|\s+$/g, '')) {
-        alert('키워드를 입력해주세요!');
-        return false;
-    }
+//     if (!keyword.replace(/^\s+|\s+$/g, '')) {
+//         alert('키워드를 입력해주세요!');
+//         return false;
+//     }
 
-    // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
-    ps.keywordSearch( keyword, placesSearchCB); 
-}
+//     // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
+//     ps.keywordSearch( keyword, placesSearchCB); 
+// }
 
 // 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
 function placesSearchCB(data, status, pagination) {
@@ -266,9 +261,23 @@ function displayPagination(pagination) {
 // 인포윈도우에 장소명을 표시합니다
 function displayInfowindow(marker, title) {
     var content = '<div style="padding:5px;z-index:1;">' + title + '</div>';
-
+    var tit = title;
     infowindow.setContent(content);
     infowindow.open(map, marker);
+
+    // alert(tit)
+   //마커를 클릭했을때 디테일나오개
+   console.log(content)
+   
+   marker.addListener('click',function(){
+    // alert(tit)
+      var detailElement = document.getElementById("detail");
+      if (detailElement.style.display === "none") {
+        detailElement.style.display = "block";
+      } else {
+        detailElement.style.display = "none";
+      }
+   })
 }
 
  // 검색결과 목록의 자식 Element를 제거하는 함수입니다
