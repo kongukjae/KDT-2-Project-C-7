@@ -14,7 +14,7 @@ mapOption = {
     // 마커를 담을 배열입니다
     var markers = [];
 
-//--여기
+//--여기 내위치 위도경도
 const getCurrentCoordinate = async function(){
     // console.log("getCurrentCoordinate 함수 실행!!!");
     return new Promise((res, rej) => { //promise객체 생성(좌표반환하는데사용함)
@@ -70,7 +70,7 @@ const getCurrentCoordinate = async function(){
 //---끝
 
 // 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
-var infowindow = new kakao.maps.InfoWindow({zIndex:1});
+var infowindow = new kakao.maps.InfoWindow({zIndex:1}); //엘리먼트값
 
 // getCurrentCoordinate();
 
@@ -121,7 +121,12 @@ function displayPlaces(places) {
     var listEl = document.getElementById('placesList'), 
     menuEl = document.getElementById('menu_wrap'),
     fragment = document.createDocumentFragment(), 
+    //createDocumentFragment()는 다른 노드를 담는 임시 컨테이너 역할을 하는 특수 목적의 노드, 가상의 노드 객체,,
+    //메모리 상에서만 존재하는 비 문서 탬플릿
+
     bounds = new kakao.maps.LatLngBounds(), 
+    //LatLngBounds 좌표계에서 사각영역 정보를 표현하는ㄱ 객체
+    //인자를 주지 않으면 빈영역생성
     listStr = '';
     
     // 검색 결과 목록에 추가된 항목들을 제거합니다
@@ -262,12 +267,13 @@ function displayPagination(pagination) {
 function displayInfowindow(marker, title) {
     var content = '<div style="padding:5px;z-index:1;">' + title + '</div>';
     var tit = title;
-    infowindow.setContent(content);
-    infowindow.open(map, marker);
+    infowindow.setContent(content); //setContent인포윈도우 내용지정
+    infowindow.open(map, marker); //opne 지도에 인포윈도우 올리기
 
     // alert(tit)
    //마커를 클릭했을때 디테일나오개
-   console.log(content)
+//    console.log(content)
+console.log(tit)
    
    marker.addListener('click',function(){
     // alert(tit)
@@ -279,6 +285,12 @@ function displayInfowindow(marker, title) {
       }
    })
 }
+
+//마커를 클릭했을때 detail에 title 내용?나오게?..하는 함수
+function detailTitle(){
+
+}
+
 
  // 검색결과 목록의 자식 Element를 제거하는 함수입니다
 function removeAllChildNods(el) {   
