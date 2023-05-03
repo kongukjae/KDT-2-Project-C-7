@@ -174,6 +174,8 @@ function displayPlaces(places) {
     listEl.appendChild(fragment);
     menuEl.scrollTop = 0;
 
+    // console.log(listEl) //결과항목들나옴
+
     // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
     map.setBounds(bounds);
 }
@@ -198,10 +200,11 @@ function getListItem(index, places) {
 
     el.innerHTML = itemStr;
     el.className = 'item';
-
+    // console.log(index) //번호나오는구나
+    console.log(places.address_name) //이게 주소임
     return el;
-}
 
+}
 // 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
 function addMarker(position, idx, title) {
     var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
@@ -280,17 +283,22 @@ console.log(tit)
       var detailElement = document.getElementById("detail");
       if (detailElement.style.display === "none") {
         detailElement.style.display = "block";
+        detailInfo(title)
       } else {
         detailElement.style.display = "none";
       }
    })
 }
 
-//마커를 클릭했을때 detail에 title 내용?나오게?..하는 함수
-function detailTitle(){
-
+function detailInfo(title, address){
+    var detailT =  title;
+    var add = address;
+    // var datailAddress = address;
+    let title1 = document.getElementById('title');
+    console.log(title1)
+    title1.innerText = `${title}`
 }
-
+console.log(detailInfo(title))
 
  // 검색결과 목록의 자식 Element를 제거하는 함수입니다
 function removeAllChildNods(el) {   

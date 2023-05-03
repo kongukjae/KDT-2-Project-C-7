@@ -49,8 +49,8 @@
       } */
 
       *{margin: 0; padding: 0;}
-.container{width: 100vw; height: 100vh; background-color:antiquewhite;}
-.header{width: 100%;height: 20%;background-color: burlywood;}
+ .container{width: 100vw; height: 100vh; } /*background-color: #e9e877; */
+.header{width: 100%;height: 20%;background-color: #f8f9d6;}
 .header>nav{width: 100%;height: 100%;display: flex;flex-direction: row;justify-content: space-evenly;align-items: center;}
 .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
 .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
@@ -85,10 +85,14 @@
 #placesList .item .marker_13 {background-position: 0 -562px;}
 #placesList .item .marker_14 {background-position: 0 -608px;}
 #placesList .item .marker_15 {background-position: 0 -654px;}
-#pagination {margin:10px auto;text-align: center;}
+#pagination {margin:10px auto; text-align: center;}
 #pagination a {display:inline-block;margin-right:10px;}s
-#pagination .on {font-weight: bold; cursor: default;color:#777;}
-#detail{width : 30%; height :100%; background-Color : #fff; display:flex; float:right; display: none;}
+#pagination .on {font-weight: bold; cursor: default; color:#777;}
+#detail{width : 30%; height :70%; border: 1px solid black; display:flex; float:right; display: none;}
+#formd{
+  background-color: #e9e877;
+  vertical-align: bottom;
+}
   </style>
 </head>
 <body>
@@ -112,23 +116,17 @@
             <div>메뉴2</div>
             <div>메뉴3</div>
         </nav>
-      </div>
-<div class="map_wrap">
-    <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;">
+    </div>
+    <div class="map_wrap">
+    <div id="map" style="width:100%; height:100%; position:relative; overflow:hidden;"></div>
     
-    </div>
-    <div id = "detail">
-      <!-- <p>여기 안에 필요한 태그 넣어야함 맞나</p> -->
-      <div id="title"></div>
-      <div id="adress"></div>
-    </div>
-
+    <!-- 키워드 -->
     <div id="menu_wrap" class="bg_white">
         <div class="option">
             <div>
                 <form onsubmit="searchPlaces(); return false;">
                     키워드 : <input type="text" value="대전" id="keyword" size="15"> 
-                    <button type="submit">검색하기</button> 
+                    <button type="submit">검색</button> 
                 </form>
             </div>
         </div>
@@ -136,6 +134,25 @@
         <ul id="placesList"></ul>
         <div id="pagination"></div>
     </div>
+
+
+
+    <!-- 우측상세 -->
+    <div id = "detail">
+      <div id="title">제목</div>
+      <div id="address">주소</div>
+      <div id="formd">
+        <form action="oneLine" method="post" style="background-color: pink;">
+          <p>★★★★★별 넣고싶음</p>
+          <p><textarea autocomplete="off" type="text" name="oneLine" placeholder="내용" value="" required>
+            </textarea>
+          </p>
+          <p><input type="submit">입력</p>
+        </form>
+      </div>
+
+    </div> 
+
 </div>
 </div>
   <script src="./map.js"></script>
